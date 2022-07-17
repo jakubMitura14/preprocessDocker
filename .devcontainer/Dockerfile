@@ -210,6 +210,6 @@ ENV TMP="/tmp"
 
 #FROM binary_build as clean_build
 # Clean up Bazel cache when done.
-RUN bazel clean --expunge --color=yes && \
-    rm -rf /root/.cache
+# RUN bazel clean --expunge --color=yes && \
+#     rm -rf /root/.cache
 CMD ["/bin/bash"]
