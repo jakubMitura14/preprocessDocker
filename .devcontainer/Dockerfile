@@ -15,6 +15,7 @@ FROM nvidia/cuda:11.2.1-base-ubuntu18.04 as base_build
 
 ARG TF_SERVING_VERSION_GIT_BRANCH=master
 ARG TF_SERVING_VERSION_GIT_COMMIT=HEAD
+ARG argTokenGithub
 
 LABEL maintainer=gvasudevan@google.com
 LABEL tensorflow_serving_github_branchtag=${TF_SERVING_VERSION_GIT_BRANCH}
@@ -111,6 +112,7 @@ RUN pip3 --no-cache-dir install \
     h5py==3.7.0 \
     itk \
     SimpleITK>=2.1.1.2 \
+    pandas \
     #SimpleITK-SimpleElastix \
     KevinSR==0.1.19 \
     intensity-normalization[ants] \
@@ -120,8 +122,13 @@ RUN pip3 --no-cache-dir install \
     git+https://github.com/balbasty/nitorch#egg=nitorch[all] \
     report_guided_annotation \
     --ignore-installed six>=1.12.0
+RUN export GITHUB_USER=jakubMitura14
 
-RUN git clone https://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@github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
+ENV env_var_name=$argTokenGithub
+
+RUN export GITHUB_TOKEN=argToken
+
+RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
 RUN git clone https://github.com/neel-dey/Atlas-GAN.git ${HOME}/externalRepos/conditionalAtlasGAN
 
 
