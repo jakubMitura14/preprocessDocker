@@ -131,7 +131,7 @@ RUN export GITHUB_TOKEN=argToken
 RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
 RUN git clone https://github.com/neel-dey/Atlas-GAN.git ${HOME}/externalRepos/conditionalAtlasGAN
 
-
+ 
 RUN git config --global user.name "Jakub Mitura"
 RUN git config --global user.email "jakub.mitura14@gmail.com"
 RUN git config -l
