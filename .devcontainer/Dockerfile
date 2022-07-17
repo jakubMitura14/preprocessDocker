@@ -111,7 +111,7 @@ RUN pip3 --no-cache-dir install \
     h5py==3.7.0 \
     itk \
     SimpleITK>=2.1.1.2 \
-    SimpleITK-SimpleElastix \
+    #SimpleITK-SimpleElastix \
     KevinSR==0.1.19 \
     intensity-normalization[ants] \
     git+https://github.com/DIAGNijmegen/picai_baseline \
