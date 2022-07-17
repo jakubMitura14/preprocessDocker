@@ -172,41 +172,41 @@ ENV TF_NCCL_VERSION=
 # Set TMP for nvidia build environment
 ENV TMP="/tmp"
 
-# Download TF Serving sources (optionally at specific commit).
-WORKDIR /tensorflow-serving
-RUN curl -sSL --retry 5 https://github.com/tensorflow/serving/tarball/${TF_SERVING_VERSION_GIT_COMMIT} | tar --strip-components=1 -xzf -
+# # Download TF Serving sources (optionally at specific commit).
+# WORKDIR /tensorflow-serving
+# RUN curl -sSL --retry 5 https://github.com/tensorflow/serving/tarball/${TF_SERVING_VERSION_GIT_COMMIT} | tar --strip-components=1 -xzf -
 
-FROM base_build as binary_build
-# Build, and install TensorFlow Serving
-ARG TF_SERVING_BUILD_OPTIONS="--config=release"
-RUN echo "Building with build options: ${TF_SERVING_BUILD_OPTIONS}"
-ARG TF_SERVING_BAZEL_OPTIONS=""
-RUN echo "Building with Bazel options: ${TF_SERVING_BAZEL_OPTIONS}"
+# FROM base_build as binary_build
+# # Build, and install TensorFlow Serving
+# ARG TF_SERVING_BUILD_OPTIONS="--config=release"
+# RUN echo "Building with build options: ${TF_SERVING_BUILD_OPTIONS}"
+# ARG TF_SERVING_BAZEL_OPTIONS=""
+# RUN echo "Building with Bazel options: ${TF_SERVING_BAZEL_OPTIONS}"
 
-RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} \
-    bazel build --color=yes --curses=yes --config=cuda --copt="-fPIC"\
-    ${TF_SERVING_BAZEL_OPTIONS} \
-    --verbose_failures \
-    --output_filter=DONT_MATCH_ANYTHING \
-    ${TF_SERVING_BUILD_OPTIONS} \
-    tensorflow_serving/model_servers:tensorflow_model_server && \
-    cp bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server \
-    /usr/local/bin/ && \
-    rm /usr/local/cuda/lib64/stubs/libcuda.so.1
+# RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 && \
+#     LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs:${LD_LIBRARY_PATH} \
+#     bazel build --color=yes --curses=yes --config=cuda --copt="-fPIC"\
+#     ${TF_SERVING_BAZEL_OPTIONS} \
+#     --verbose_failures \
+#     --output_filter=DONT_MATCH_ANYTHING \
+#     ${TF_SERVING_BUILD_OPTIONS} \
+#     tensorflow_serving/model_servers:tensorflow_model_server && \
+#     cp bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server \
+#     /usr/local/bin/ && \
+#     rm /usr/local/cuda/lib64/stubs/libcuda.so.1
 
-# Build and install TensorFlow Serving API
-RUN bazel build --color=yes --curses=yes \
-    ${TF_SERVING_BAZEL_OPTIONS} \
-    --verbose_failures \
-    --output_filter=DONT_MATCH_ANYTHING \
-    ${TF_SERVING_BUILD_OPTIONS} \
-    tensorflow_serving/tools/pip_package:build_pip_package && \
-    bazel-bin/tensorflow_serving/tools/pip_package/build_pip_package \
-    /tmp/pip && \
-    pip --no-cache-dir install --upgrade \
-    /tmp/pip/tensorflow_serving_api_gpu-*.whl && \
-    rm -rf /tmp/pip
+# # Build and install TensorFlow Serving API
+# RUN bazel build --color=yes --curses=yes \
+#     ${TF_SERVING_BAZEL_OPTIONS} \
+#     --verbose_failures \
+#     --output_filter=DONT_MATCH_ANYTHING \
+#     ${TF_SERVING_BUILD_OPTIONS} \
+#     tensorflow_serving/tools/pip_package:build_pip_package && \
+#     bazel-bin/tensorflow_serving/tools/pip_package/build_pip_package \
+#     /tmp/pip && \
+#     pip --no-cache-dir install --upgrade \
+#     /tmp/pip/tensorflow_serving_api_gpu-*.whl && \
+#     rm -rf /tmp/pip
 
 FROM binary_build as clean_build
 # Clean up Bazel cache when done.
