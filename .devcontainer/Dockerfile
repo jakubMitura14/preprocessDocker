@@ -128,7 +128,6 @@ ENV env_var_name=$argTokenGithub
 
 RUN export GITHUB_TOKEN=argToken
 
-#RUN git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
 RUN git clone https://github.com/neel-dey/Atlas-GAN.git ${HOME}/externalRepos/conditionalAtlasGAN
 
  
@@ -212,4 +211,7 @@ ENV TMP="/tmp"
 # Clean up Bazel cache when done.
 # RUN bazel clean --expunge --color=yes && \
 #     rm -rf /root/.cache
+RUN git clone https://github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
+
+
 CMD ["/bin/bash"]
