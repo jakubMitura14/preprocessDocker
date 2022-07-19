@@ -131,8 +131,8 @@ RUN pip3 --no-cache-dir install \
     voxelmorph==0.2 \
     tensorflow_addons==0.17.0 \
     h5py==3.7.0 \
-    itk \
-    SimpleITK>=2.1.1.2 \
+    #itk \
+    #SimpleITK>=2.1.1.2 \
     pandas \
     comet_ml \
     #SimpleITK-SimpleElastix \
