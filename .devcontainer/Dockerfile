@@ -187,6 +187,8 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so.${TF_CUDNN_VERSION} /usr/local/cuda/lib64/libcudnn.so.${TF_CUDNN_VERSION}
 
 RUN mkdir ${HOME}/scripts
+RUN mkdir ${HOME}/externalRepos/elastix
+RUN git clone https://github.com/SuperElastix/SimpleElastix ${HOME}/externalRepos/elastix
 
 RUN mkdir ${HOME}/externalRepos/elastix
 RUN cd ${HOME}/externalRepos/elastix && \
