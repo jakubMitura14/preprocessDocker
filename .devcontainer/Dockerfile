@@ -194,7 +194,7 @@ RUN cd ${HOME}/externalRepos/elastix && \
     mkdir buildd && \
     cd buildd && \
     cmake ${HOME}/externalRepos/elastix/SuperBuild && \
-    make -j6
+    make -j4
 # COPY uniRes_elastix.sh ${HOME}/scripts
 
 
