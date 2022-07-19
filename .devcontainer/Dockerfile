@@ -61,7 +61,6 @@ RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/
         zip \
         zlib1g-dev \
         libgomp1 \
-        cmake \
         python3-distutils \
         python-distutils-extra && \
     find /usr/local/cuda-11.2/lib64/ -type f -name 'lib*_static.a' -not -name 'libcudart_static.a' -delete && \
