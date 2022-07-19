@@ -113,7 +113,6 @@ RUN pip3 --no-cache-dir install \
     itk \
     SimpleITK>=2.1.1.2 \
     pandas \
-    zipfile \
     #SimpleITK-SimpleElastix \
     KevinSR==0.1.19 \
     intensity-normalization[ants] \
