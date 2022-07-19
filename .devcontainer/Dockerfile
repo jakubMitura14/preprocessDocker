@@ -172,7 +172,7 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
 RUN mkdir ${HOME}/externalRepos/elastix
 #RUN ["chmod", "+x", "/home/sliceruser/externalRepos/elastix"]
 
-RUN /home/sliceruser/uniRes_elastix.sh
+RUN ${HOME}/uniRes_elastix.sh
 
 # For backward compatibility we need this line. After 1.13 we can safely remove
 # it.
