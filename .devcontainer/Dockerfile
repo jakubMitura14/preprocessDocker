@@ -60,6 +60,7 @@ RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/
         wget \
         zip \
         zlib1g-dev \
+        libgomp1 \
         python3-distutils \
         python-distutils-extra && \
     find /usr/local/cuda-11.2/lib64/ -type f -name 'lib*_static.a' -not -name 'libcudart_static.a' -delete && \
@@ -95,6 +96,8 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 0
 RUN curl -fSsL -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
+COPY uniRes_elastix.sh .
+RUN ["chmod", "+x", "/home/sliceruser/uniRes_elastix.sh"]
 
 RUN pip3 --no-cache-dir install \
     future>=0.17.1 \
@@ -164,6 +167,12 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
   ln -s /usr/include/cudnn.h /usr/local/cuda/include/cudnn.h && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so /usr/local/cuda/lib64/libcudnn.so && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so.${TF_CUDNN_VERSION} /usr/local/cuda/lib64/libcudnn.so.${TF_CUDNN_VERSION}
+
+
+RUN mkdir ${HOME}/externalRepos/elastix
+RUN ["chmod", "+x", "/home/sliceruser/externalRepos/elastix"]
+
+RUN /home/sliceruser/uniRes_elastix.sh
 
 # For backward compatibility we need this line. After 1.13 we can safely remove
 # it.
