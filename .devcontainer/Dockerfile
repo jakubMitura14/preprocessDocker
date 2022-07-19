@@ -170,9 +170,15 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
 
 RUN mkdir ${HOME}/scripts
 
-COPY uniRes_elastix.sh ${HOME}/scripts
-
 RUN mkdir ${HOME}/externalRepos/elastix
+RUN cd ${HOME}/externalRepos/elastix && \
+    mkdir buildd && \
+    cd buildd && \
+    cmake ${HOME}/externalRepos/elastix/SuperBuild && \
+    make -j6
+# COPY uniRes_elastix.sh ${HOME}/scripts
+
+
 #RUN ["chmod", "+x", "/home/sliceruser/externalRepos/elastix"]
 
 #RUN ${HOME}/scripts/uniRes_elastix.sh
