@@ -168,11 +168,14 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so /usr/local/cuda/lib64/libcudnn.so && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so.${TF_CUDNN_VERSION} /usr/local/cuda/lib64/libcudnn.so.${TF_CUDNN_VERSION}
 
+RUN mkdir ${HOME}/scripts
+
+COPY uniRes_elastix.sh ${HOME}/scripts
 
 RUN mkdir ${HOME}/externalRepos/elastix
 #RUN ["chmod", "+x", "/home/sliceruser/externalRepos/elastix"]
 
-RUN ${HOME}/uniRes_elastix.sh
+RUN ${HOME}/scripts/uniRes_elastix.sh
 
 # For backward compatibility we need this line. After 1.13 we can safely remove
 # it.
