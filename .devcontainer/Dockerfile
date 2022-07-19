@@ -24,6 +24,7 @@ LABEL tensorflow_serving_github_commit=${TF_SERVING_VERSION_GIT_COMMIT}
 ENV CUDNN_VERSION=8.1.0.77
 ENV TF_TENSORRT_VERSION=7.2.2
 ENV CUDA=11.2
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub && \
     apt-get update && apt-get install -y --no-install-recommends \
@@ -61,6 +62,7 @@ RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/
         zip \
         zlib1g-dev \
         libgomp1 \
+        cmake \
         python3-distutils \
         python-distutils-extra && \
     find /usr/local/cuda-11.2/lib64/ -type f -name 'lib*_static.a' -not -name 'libcudart_static.a' -delete && \
