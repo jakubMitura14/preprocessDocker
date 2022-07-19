@@ -175,7 +175,7 @@ COPY uniRes_elastix.sh ${HOME}/scripts
 RUN mkdir ${HOME}/externalRepos/elastix
 #RUN ["chmod", "+x", "/home/sliceruser/externalRepos/elastix"]
 
-RUN ${HOME}/scripts/uniRes_elastix.sh
+#RUN ${HOME}/scripts/uniRes_elastix.sh
 
 # For backward compatibility we need this line. After 1.13 we can safely remove
 # it.
