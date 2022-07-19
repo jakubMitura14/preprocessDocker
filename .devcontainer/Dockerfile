@@ -97,7 +97,7 @@ RUN curl -fSsL -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
 COPY uniRes_elastix.sh .
-RUN ["chmod", "+x", "/home/sliceruser/uniRes_elastix.sh"]
+#RUN ["chmod", "+x", "/home/sliceruser/uniRes_elastix.sh"]
 
 RUN pip3 --no-cache-dir install \
     future>=0.17.1 \
