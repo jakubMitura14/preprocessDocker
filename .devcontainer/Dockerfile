@@ -194,7 +194,9 @@ RUN cd ${HOME}/externalRepos/elastix && \
     mkdir buildd && \
     cd buildd && \
     cmake ${HOME}/externalRepos/elastix/SuperBuild && \
-    make -j4
+    make -j4 && \
+    cd ${HOME}/externalRepos/elastix/buildd/SimpleITK-build/Wrapping/Python && \
+    python Packaging/setup.py install
 # COPY uniRes_elastix.sh ${HOME}/scripts
 
 
