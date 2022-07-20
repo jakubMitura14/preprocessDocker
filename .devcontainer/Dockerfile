@@ -114,7 +114,6 @@ ENV PATH="/opt/cmake/bin:${PATH}"
 RUN curl -fSsL -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
-COPY uniRes_elastix.sh .
 #RUN ["chmod", "+x", "/home/sliceruser/uniRes_elastix.sh"]
 
 RUN pip3 --no-cache-dir install \
@@ -186,11 +185,11 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so /usr/local/cuda/lib64/libcudnn.so && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so.${TF_CUDNN_VERSION} /usr/local/cuda/lib64/libcudnn.so.${TF_CUDNN_VERSION}
 
-RUN mkdir ${HOME}/scripts
+# RUN mkdir ${HOME}/scripts
 
-RUN mkdir ${HOME}/externalRepos
-RUN mkdir ${HOME}/externalRepos/elastix
-RUN git clone https://github.com/SuperElastix/SimpleElastix ${HOME}/externalRepos/elastix
+# RUN mkdir ${HOME}/externalRepos
+# RUN mkdir ${HOME}/externalRepos/elastix
+# RUN git clone https://github.com/SuperElastix/SimpleElastix ${HOME}/externalRepos/elastix
 
 # RUN cd ${HOME}/externalRepos/elastix && \
 #     mkdir buildd && \
@@ -254,6 +253,7 @@ ENV TMP="/tmp"
 # RUN bazel clean --expunge --color=yes && \
 #     rm -rf /root/.cache
 RUN git clone https://github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
+RUN apt-get update
 RUN apt-get -y install elastix
 
 CMD ["/bin/bash"]
