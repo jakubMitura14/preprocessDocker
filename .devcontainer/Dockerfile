@@ -132,7 +132,7 @@ RUN pip3 --no-cache-dir install \
     tensorflow_addons==0.17.0 \
     h5py==3.7.0 \
     #itk \
-    #SimpleITK>=2.1.1.2 \
+    SimpleITK>=2.1.1.2 \
     pandas \
     comet_ml \
     #SimpleITK-SimpleElastix \
@@ -187,16 +187,18 @@ RUN mkdir /usr/lib/x86_64-linux-gnu/include/ && \
   ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so.${TF_CUDNN_VERSION} /usr/local/cuda/lib64/libcudnn.so.${TF_CUDNN_VERSION}
 
 RUN mkdir ${HOME}/scripts
+
+RUN mkdir ${HOME}/externalRepos
 RUN mkdir ${HOME}/externalRepos/elastix
 RUN git clone https://github.com/SuperElastix/SimpleElastix ${HOME}/externalRepos/elastix
 
-RUN cd ${HOME}/externalRepos/elastix && \
-    mkdir buildd && \
-    cd buildd && \
-    cmake ${HOME}/externalRepos/elastix/SuperBuild && \
-    make -j6 && \
-    cd ${HOME}/externalRepos/elastix/buildd/SimpleITK-build/Wrapping/Python && \
-    python Packaging/setup.py install
+# RUN cd ${HOME}/externalRepos/elastix && \
+#     mkdir buildd && \
+#     cd buildd && \
+#     cmake ${HOME}/externalRepos/elastix/SuperBuild && \
+#     make -j6 && \
+#     cd ${HOME}/externalRepos/elastix/buildd/SimpleITK-build/Wrapping/Python && \
+#     python Packaging/setup.py install
 # COPY uniRes_elastix.sh ${HOME}/scripts
 
 
@@ -252,6 +254,6 @@ ENV TMP="/tmp"
 # RUN bazel clean --expunge --color=yes && \
 #     rm -rf /root/.cache
 RUN git clone https://github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
-
+RUN apt-get -y install elastix
 
 CMD ["/bin/bash"]
