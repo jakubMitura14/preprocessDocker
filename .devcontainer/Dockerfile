@@ -252,6 +252,7 @@ ENV TMP="/tmp"
 # Clean up Bazel cache when done.
 # RUN bazel clean --expunge --color=yes && \
 #     rm -rf /root/.cache
+RUN git clone https://github.com/DIAGNijmegen/picai_labels.git ${HOME}/labels
 RUN git clone https://github.com/jakubMitura14/piCaiCode.git ${HOME}/data/piCaiCode
 RUN apt-get update
 RUN apt-get -y install elastix
